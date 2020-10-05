@@ -1,12 +1,16 @@
 # AWS_Transcribe
 
-Simple testing script for Amazon Transcribe Streaming by using their [python SDK](https://github.com/awslabs/amazon-transcribe-streaming-sdk).
+Simple scripts for Amazon Transcribe 
 
-## Dependencies
+Amazon Transcribe Streaming: using their [python SDK](https://github.com/awslabs/amazon-transcribe-streaming-sdk).
+
+## src
+scripts dir
+
+### Dependencies
 See Pipfile
 
-## Input
-a wav file
+### test_streaming.py
+Input: a wav file
 
-## Output
-print out transcription, word, tart_time and end_time
+Output: print out transcription, word, tart_time and end_time
