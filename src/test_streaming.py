@@ -36,6 +36,8 @@ class MyEventHandler(TranscriptResultStreamHandler):
 async def basic_trascribe(wavfile: str):
     client = TranscribeStreamingClient(region="us-east-1")
 
+    # wanted to set up the vocab_filter_name and vocab_filter_method param, but vocab_filter_name is missing
+    # see https://github.com/awslabs/amazon-transcribe-streaming-sdk/issues/8
     stream = await client.start_stream_transcription(language_code='en-US', media_sample_rate_hz=16000, media_encoding='pcm')
 
     async def write_chunks():
