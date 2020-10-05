@@ -22,10 +22,11 @@ class MyEventHandler(TranscriptResultStreamHandler):
     async def handle_transcript_event(self, transcript_event: TranscriptEvent):
         results = transcript_event.transcript.results
         for result in results:
-            for alt in result.alternatives:
-                print(alt.transcript)
+            if not result.is_partial:
+                alt = result.alternatives[0]
+                print(f'transcript {alt.transcript}')
                 for item in alt.items:
-                    print(item.content, item.start_time, item.end_time)
+                    print(f' word {item.content}, start_time {item.start_time}, end_time {item.end_time}')
 
 
 async def basic_trascribe(wavfile: str):
@@ -45,7 +46,7 @@ async def basic_trascribe(wavfile: str):
 
 
 @click.command()
-@click.option('-i', '--input_file', type=str)
+@click.option('-i', '--input_file', default='/Users/xinruyan/Developer/elizabethhau_emilyahn-finalproject/data/comparison/xinru_script1.wav', type=str)
 def main(input_file):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(basic_trascribe(input_file))
