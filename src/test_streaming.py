@@ -21,10 +21,12 @@ from amazon_transcribe.model import TranscriptEvent
 class MyEventHandler(TranscriptResultStreamHandler):
     async def handle_transcript_event(self, transcript_event: TranscriptEvent):
         results = transcript_event.transcript.results
+        # result: https://docs.aws.amazon.com/transcribe/latest/dg/API_streaming_Result.html
         for result in results:
             if not result.is_partial:
                 alt = result.alternatives[0]
                 print(f'transcript {alt.transcript}')
+                # word item: https://docs.aws.amazon.com/transcribe/latest/dg/API_streaming_Item.html
                 for item in alt.items:
                     print(f' word {item.content}, start_time {item.start_time}, end_time {item.end_time}')
 
