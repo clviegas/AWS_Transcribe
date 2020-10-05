@@ -28,7 +28,9 @@ class MyEventHandler(TranscriptResultStreamHandler):
                 print(f'transcript {alt.transcript}')
                 # word item: https://docs.aws.amazon.com/transcribe/latest/dg/API_streaming_Item.html
                 for item in alt.items:
-                    print(f' word {item.content}, start_time {item.start_time}, end_time {item.end_time}')
+                    # two item_types: pronunciation, punctuation
+                    if item.item_type == 'pronunciation':
+                        print(f' word {item.content}, start_time {item.start_time}, end_time {item.end_time}')
 
 
 async def basic_trascribe(wavfile: str):
