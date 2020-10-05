@@ -8,6 +8,8 @@ Usage:
     python test_streaming.py -i INPUT_WAV_FILE
 
 Amazon Transcribe Streaming SDK for python: https://github.com/awslabs/amazon-transcribe-streaming-sdk
+
+Java version: https://docs.aws.amazon.com/transcribe/latest/dg/getting-started-streaming.html
 '''
 import asyncio
 import aiofile
