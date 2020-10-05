@@ -2,7 +2,10 @@
 Xinru Yan
 Oct 2020
 
-testing script for amazon transcribe streaming
+Testing script for amazon transcribe streaming
+
+Usage:
+    python test_streaming.py -i INPUT_WAV_FILE
 
 Amazon Transcribe Streaming SDK for python: https://github.com/awslabs/amazon-transcribe-streaming-sdk
 '''
@@ -42,7 +45,7 @@ async def basic_trascribe(wavfile: str):
 
 
 @click.command()
-@click.option('-i', '--input_file', default='/Users/xinruyan/Developer/elizabethhau_emilyahn-finalproject/data/comparison/xinru_script1.wav', type=str)
+@click.option('-i', '--input_file', type=str)
 def main(input_file):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(basic_trascribe(input_file))
