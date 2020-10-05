@@ -8,6 +8,7 @@ Amazon Transcribe Streaming SDK for python: https://github.com/awslabs/amazon-tr
 '''
 import asyncio
 import aiofile
+import click
 
 from amazon_transcribe.client import TranscribeStreamingClient
 from amazon_transcribe.handlers import TranscriptResultStreamHandler
@@ -24,13 +25,13 @@ class MyEventHandler(TranscriptResultStreamHandler):
                     print(item.content, item.start_time, item.end_time)
 
 
-async def basic_trascribe():
+async def basic_trascribe(wavfile: str):
     client = TranscribeStreamingClient(region="us-east-1")
 
     stream = await client.start_stream_transcription(language_code='en-US', media_sample_rate_hz=16000, media_encoding='pcm')
 
     async def write_chunks():
-        async with aiofile.AIOFile('../../elizabethhau_emilyahn-finalproject/data/comparison/xinru_script1.wav', 'rb') as afp:
+        async with aiofile.AIOFile(wavfile, 'rb') as afp:
             reader = aiofile.Reader(afp, chunk_size=1024 * 16)
             async for chunk in reader:
                 await stream.input_stream.send_audio_event(audio_chunk=chunk)
@@ -40,6 +41,13 @@ async def basic_trascribe():
     await asyncio.gather(write_chunks(), handler.handle_events())
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(basic_trascribe())
-loop.close()
+@click.command()
+@click.option('-i', '--input_file', default='/Users/xinruyan/Developer/elizabethhau_emilyahn-finalproject/data/comparison/xinru_script1.wav', type=str)
+def main(input_file):
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(basic_trascribe(input_file))
+    loop.close()
+
+
+if __name__ == "__main__":
+    main()
